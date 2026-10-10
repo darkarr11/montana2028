@@ -137,3 +137,7 @@ mark.m28-hl:hover { background: rgba(242,196,67,.6); }
 .m28-ok { color: #1e6b33; font-weight: 700; }
 .m28-deleted { color: #999; font-style: italic; }
 .m28-auth-err { color: #9b2424; margin-top: .3rem; }
+.m28-demo-caption { font-size: 1.15rem; font-weight: 700; color: #01245f; display: flex; align-items: center; gap: .7rem; }
+.m28-demo-caption.pop { animation: m28-pop .45s ease-out; }
+@keyframes m28-pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.m28-step { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: #f2c443; color: #01245f; font-size: 1rem; }

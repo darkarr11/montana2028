@@ -41,7 +41,10 @@
   }
   function moveCursor(p) { cursor.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
   function click() { cursor.classList.add('click'); timers.push(setTimeout(function () { cursor.classList.remove('click'); }, 250)); }
-  function say(t) { caption.innerHTML = t; }
+  function say(t) {
+    caption.innerHTML = t;
+    caption.classList.remove('pop'); void caption.offsetWidth; caption.classList.add('pop');
+  }
   function typeInto(el, text, id) {
     var i = 0;
     return new Promise(function (res) {
@@ -70,7 +73,7 @@
     cursor.style.transition = 'none'; moveCursor({ x: stage.clientWidth - 40, y: stage.clientHeight - 30 });
     await wait(50, id); cursor.style.transition = '';
 
-    say('<b>Step 1.</b> Highlight any sentence, paragraph, or section of the policy.');
+    say('<span class="m28-step">1</span> Highlight the section you want to comment on.');
     await wait(700, id);
     moveCursor(pos(s1, 0, 6)); await wait(800, id);
     s1.classList.add('sweeping'); moveCursor(pos(s1, s1.getBoundingClientRect().width > stage.clientWidth * 0.6 ? stage.clientWidth * 0.55 : s1.getBoundingClientRect().width, 26));
@@ -80,7 +83,7 @@
     moveCursor(pos(fakeBtn, 40, 14)); await wait(700, id); click(); await wait(300, id);
     fakeBtn.classList.remove('show');
 
-    say('<b>Step 2.</b> Say what you think. Ask a question, agree, disagree, or add information.');
+    say('<span class="m28-step">2</span> Leave your comment.');
     var b1 = blabCard('Example: Sam in Roundup', 'Question', 'm28-question');
     thread.appendChild(b1);
     await typeInto(b1.querySelector('.m28-body'), BLAB1, id);
@@ -89,7 +92,7 @@
     var badge = document.createElement('span'); badge.className = 'm28-badge m28-demo-badge'; badge.setAttribute('data-count', '1'); s1.after(badge);
     await wait(1500, id);
 
-    say('<b>Step 3.</b> Highlight words inside anyone’s blab to answer that exact part.');
+    say('<span class="m28-step">3</span> Someone else can respond to your comment, or a section of your comment.');
     var body1 = b1.querySelector('.m28-body');
     var i = BLAB1.indexOf(PHRASE);
     body1.innerHTML = BLAB1.slice(0, i) + '<span class="m28-demo-sweep s2">' + PHRASE + '</span>' + BLAB1.slice(i + PHRASE.length);
@@ -111,7 +114,7 @@
     var badge2 = document.createElement('span'); badge2.className = 'm28-badge m28-demo-badge'; badge2.setAttribute('data-count', '1'); s2.after(badge2);
     await wait(900, id);
     moveCursor({ x: stage.clientWidth - 40, y: stage.clientHeight - 30 });
-    say('<b>That’s it.</b> Highlights show everyone what’s being argued, and where. Click any highlight to read the discussion.');
+    say('<span class="m28-step">\u2713</span> That\u2019s it. Click any highlight to read the discussion.');
   }
 
   function open() { modal.classList.add('open'); play(); }
