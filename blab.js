@@ -219,6 +219,7 @@
       var data = build({ text: text, stance: st ? st.value : 'context' });
       var btn = form.querySelector('.m28-post'); btn.disabled = true; btn.textContent = 'Posting...';
       db.collection('blabs').doc(data.id).set(data).then(function () {
+        notify(data);
         form.querySelector('.m28-text').value = '';
         btn.disabled = false; btn.textContent = 'Post';
         var slot = form.closest('.m28-reply-slot');
@@ -228,6 +229,33 @@
         btn.disabled = false; btn.textContent = 'Post failed, try again';
       });
     });
+  }
+
+  /* Email Darren about every new blab (FormSubmit relay, no server or password) */
+  var NOTIFY_URL = 'https://formsubmit.co/ajax/dkarr@mac.com';
+  var POLICY_TITLE = policy.getAttribute('data-title') || document.title;
+  function notify(d) {
+    if (/_test$/.test(DOC_KEY)) return;
+    var link = location.origin + location.pathname + '#blab=' + encodeURIComponent(d.id);
+    var where = d.anchor && d.anchor.exact
+      ? (d.anchor.type === 'blab-text' ? 'Replying to part of a comment: "' : 'On the passage: "') + d.anchor.exact + '"'
+      : (d.parentId ? 'A reply in the discussion' : 'In General discussion');
+    try {
+      fetch(NOTIFY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: 'New blab on Montana2028: ' + POLICY_TITLE,
+          _template: 'table',
+          _captcha: 'false',
+          From: d.name + (d.signedIn ? ' (signed in)' : ''),
+          Stance: stanceLabel(d.stance),
+          Where: where,
+          Blab: d.text,
+          Link: link
+        })
+      }).catch(function () {});
+    } catch (e) {}
   }
 
   function blabDoc(sectionId, f, extra) {
