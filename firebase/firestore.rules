@@ -1,0 +1,72 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Blabs: public read + anonymous create (the civic product). No blab can be
+    // edited or deleted by anyone else. montana2028.com blabs (docKey montana2028_*)
+    // add identity: a name only comes from a signed-in account, never typed in,
+    // and the signed-in author may edit or blank out their own blab.
+    function signedIn() {
+      return request.auth != null && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+    function isStr(v, n) { return v is string && v.size() <= n; }
+    function m28Create() {
+      let d = request.resource.data;
+      return d.createdByUid == request.auth.uid
+        && ((d.signedIn == true && signedIn() && d.name == request.auth.token.name)
+            || (d.signedIn == false && d.name == 'Anonymous'));
+    }
+    match /blabs/{blabId} {
+      allow read: if true;
+      allow create: if request.auth != null
+                    && isStr(request.resource.data.docKey, 200)
+                    && isStr(request.resource.data.text, 10000)
+                    && isStr(request.resource.data.name, 100)
+                    && isStr(request.resource.data.stance, 40)
+                    && (!request.resource.data.docKey.matches('montana2028_.*') || m28Create());
+      allow update: if signedIn()
+                    && resource.data.docKey.matches('montana2028_.*')
+                    && resource.data.createdByUid == request.auth.uid
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'stance', 'edited', 'deleted'])
+                    && isStr(request.resource.data.text, 10000);
+      allow delete: if false;
+    }
+    match /votes/{voteId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    match /groves/{groveId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['name', 'createdBy', 'type'])
+                    && request.resource.data.type in ['civic', 'teams', 'social'];
+      allow update: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+    match /trees/{treeId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+    match /teams/{teamId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null;
+      allow delete: if false;
+    }
+    match /users/{userId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null && request.auth.uid == userId;
+    }
+    match /pendingInvites/{inviteId} {
+      allow read, create, update: if request.auth != null;
+    }
+    match /notifications/{notifId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if false;
+    }
+  }
+}
+

@@ -183,7 +183,7 @@
         var target = node;
         if (en < target.textContent.length) target.splitText(en);
         if (st > 0) target = target.splitText(st);
-        var m = document.createElement('mark'); m.className = 'm28-hl';
+        var m = document.createElement('mark'); m.className = 'm28-hl'; m.setAttribute('data-key', key);
         target.parentNode.insertBefore(m, target); m.appendChild(target);
         m.addEventListener('click', function (e) { e.stopPropagation(); openThread(key); });
         marks.push(m);
@@ -394,7 +394,33 @@
     blabs = [];
     snap.forEach(function (d) { blabs.push(d.data()); });
     refresh();
+    if (!deepLinked) { deepLinked = true; openFromLink(); }
   });
+
+  /* Email links land on page.html#blab=<id>: open that blab and flash it */
+  var deepLinked = false;
+  function openFromLink() {
+    var m = /[#&]blab=([^&]+)/.exec(location.hash);
+    if (!m) return;
+    var b = byId(decodeURIComponent(m[1]));
+    if (!b) return;
+    var root = b, guard = 0;
+    while (root.parentId && byId(root.parentId) && guard++ < 50) root = byId(root.parentId);
+    function flash(container) {
+      var el = container.querySelector('.m28-blab[data-id="' + CSS.escape(b.id) + '"]');
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('m28-flash'); setTimeout(function () { el.classList.remove('m28-flash'); }, 2500);
+    }
+    if (root.sectionId === SECTION && isPassage(root)) {
+      openThread(root.anchor.exact);
+      var hl = [].filter.call(policy.querySelectorAll('mark.m28-hl'), function (mk) { return mk.getAttribute('data-key') === root.anchor.exact; })[0];
+      if (hl) hl.scrollIntoView({ block: 'center' });
+      setTimeout(function () { flash(panelBody); }, 300);
+    } else if (general) {
+      setTimeout(function () { flash(general); }, 300);
+    }
+  }
 
   function typing(el) {
     var t = el.querySelectorAll('textarea'), i;
