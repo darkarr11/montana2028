@@ -17,8 +17,7 @@
         '<p class="m28-demo-para">' + PARA_BEFORE + '<span class="m28-demo-sweep s1">' + SENTENCE + '</span>' + PARA_AFTER + '</p>' +
         '<div class="m28-demo-thread"></div>' +
         '<button type="button" class="m28-demo-fakebtn">💬 Blab on this</button>' +
-        '<div class="m28-demo-cursor"></div>' +
-        '<div class="m28-tip"></div>' +
+        '<div class="m28-demo-cursor"><div class="m28-tip"></div></div>' +
       '</div>' +
       '<div class="m28-demo-foot"><span class="m28-demo-note">Example only. Names and comments are made up.</span>' +
         '<span><button type="button" class="m28-demo-replay">Replay</button> <button type="button" class="m28-demo-try">Try it yourself</button></span></div>' +
@@ -40,24 +39,20 @@
     var s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
     return { x: r.left - s.left + (dx || 0), y: r.top - s.top + (dy || 0) };
   }
-  function moveCursor(p) { cursor.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
+  var cur = { x: 0, y: 0 };
+  /* Keep the instruction box beside the cursor, flipping left/up near the stage edges */
+  function placeTip() {
+    var W = stage.clientWidth, H = stage.clientHeight;
+    tip.classList.toggle('flip-x', cur.x + 24 + tip.offsetWidth > W - 8);
+    tip.classList.toggle('flip-y', cur.y + 26 + tip.offsetHeight > H - 8);
+  }
+  function moveCursor(p) { cur = p; cursor.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; placeTip(); }
   function click() { cursor.classList.add('click'); timers.push(setTimeout(function () { cursor.classList.remove('click'); }, 250)); }
-  /* Floating instruction box next to the action: side = 'above' | 'below' | 'center' */
-  function say(t, el, side) {
+  /* Instruction box rides with the cursor */
+  function say(t) {
+    tip.classList.remove('show');
     tip.innerHTML = t;
-    tip.className = 'm28-tip ' + (side === 'below' ? 'below' : side === 'center' ? 'center' : 'above');
-    var W = stage.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight, x, y, ax = tw / 2;
-    if (side === 'center' || !el) {
-      x = (W - tw) / 2; y = stage.clientHeight - th - 24;
-    } else {
-      var p = pos(el), r = el.getBoundingClientRect();
-      var cx = p.x + Math.min(r.width, W) / 2;
-      x = Math.max(8, Math.min(W - tw - 8, cx - tw / 2));
-      ax = Math.max(16, Math.min(tw - 16, cx - x));
-      y = side === 'below' ? p.y + r.height + 14 : p.y - th - 14;
-    }
-    tip.style.left = x + 'px'; tip.style.top = Math.max(4, y) + 'px';
-    tip.style.setProperty('--ax', ax + 'px');
+    placeTip();
     void tip.offsetWidth; tip.classList.add('show');
   }
   function typeInto(el, text, id) {
@@ -90,7 +85,7 @@
 
     tip.className = 'm28-tip';
     await wait(300, id);
-    say('<span class="m28-step">1</span> Highlight the section you want to comment on.', modal.querySelector('.m28-demo-para'), 'above');
+    say('<span class="m28-step">1</span> Highlight the section you want to comment on.');
     await wait(700, id);
     moveCursor(pos(s1, 0, 6)); await wait(800, id);
     s1.classList.add('sweeping'); moveCursor(pos(s1, s1.getBoundingClientRect().width > stage.clientWidth * 0.6 ? stage.clientWidth * 0.55 : s1.getBoundingClientRect().width, 26));
@@ -102,15 +97,17 @@
 
     var b1 = blabCard('Example: Sam in Roundup', 'Question', 'm28-question');
     thread.appendChild(b1);
-    say('<span class="m28-step">2</span> Leave your comment.', b1, 'below');
+    say('<span class="m28-step">2</span> Leave your comment.');
     await wait(900, id);
+    moveCursor(pos(b1.querySelector('.m28-body'), -6, b1.querySelector('.m28-body').offsetHeight));
+    await wait(700, id);
     await typeInto(b1.querySelector('.m28-body'), BLAB1, id);
     await wait(500, id);
     s1.classList.add('done');
     var badge = document.createElement('span'); badge.className = 'm28-badge m28-demo-badge'; badge.setAttribute('data-count', '1'); s1.after(badge);
     await wait(1500, id);
 
-    say('<span class="m28-step">3</span> Someone else can respond to your comment, or a section of your comment.', b1, 'above');
+    say('<span class="m28-step">3</span> Someone else can respond to your comment, or a section of your comment.');
     var body1 = b1.querySelector('.m28-body');
     var i = BLAB1.indexOf(PHRASE);
     body1.innerHTML = BLAB1.slice(0, i) + '<span class="m28-demo-sweep s2">' + PHRASE + '</span>' + BLAB1.slice(i + PHRASE.length);
@@ -127,12 +124,14 @@
     var b2 = blabCard('Example: Darren', '', '', PHRASE);
     b2.style.marginLeft = '14px';
     thread.appendChild(b2);
+    moveCursor(pos(b2.querySelector('.m28-body'), -6, b2.querySelector('.m28-body').offsetHeight));
+    await wait(700, id);
     await typeInto(b2.querySelector('.m28-body'), BLAB2, id);
     s2.classList.add('done');
     var badge2 = document.createElement('span'); badge2.className = 'm28-badge m28-demo-badge'; badge2.setAttribute('data-count', '1'); s2.after(badge2);
     await wait(900, id);
     moveCursor({ x: stage.clientWidth - 40, y: stage.clientHeight - 30 });
-    say('<span class="m28-step">\u2713</span> That\u2019s it. Click any highlight to read the discussion.', null, 'center');
+    say('<span class="m28-step">\u2713</span> That\u2019s it. Click any highlight to read the discussion.');
   }
 
   function open() { modal.classList.add('open'); play(); }

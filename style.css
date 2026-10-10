@@ -142,14 +142,12 @@ mark.m28-hl:hover { background: rgba(242,196,67,.6); }
 @keyframes m28-pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 .m28-step { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: #f2c443; color: #01245f; font-size: 1rem; }
 
-/* Demo: floating instruction boxes */
+/* Demo: instruction box rides with the cursor */
 .m28-demo-blab .m28-body { min-height: 3.2em; }
-.m28-tip { position: absolute; z-index: 2; max-width: min(340px, 86%); background: #01245f; color: #fff; border-radius: 10px;
-  padding: .7rem .9rem; font: 700 1rem/1.35 var(--font-ui); box-shadow: 0 8px 24px rgba(0,0,0,.25);
-  display: flex; align-items: center; gap: .6rem; opacity: 0; transform: translateY(6px); transition: opacity .35s, transform .35s; pointer-events: none; }
-.m28-tip.show { opacity: 1; transform: none; }
-.m28-tip::after { content: ''; position: absolute; left: calc(var(--ax, 50%) - 8px); border: 8px solid transparent; }
-.m28-tip.above::after { top: 100%; border-top-color: #01245f; }
-.m28-tip.below::after { bottom: 100%; border-bottom-color: #01245f; }
-.m28-tip.center::after { display: none; }
-.m28-tip .m28-step { width: 1.7rem; height: 1.7rem; font-size: .9rem; }
+.m28-tip { position: absolute; left: 24px; top: 26px; width: max-content; max-width: 250px; background: #01245f; color: #fff;
+  border: 2px solid #f2c443; border-radius: 10px; padding: .55rem .75rem; font: 700 .95rem/1.3 var(--font-ui);
+  box-shadow: 0 8px 24px rgba(0,0,0,.3); display: flex; align-items: center; gap: .5rem; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.m28-tip.show { opacity: 1; }
+.m28-tip.flip-x { left: auto; right: 8px; }
+.m28-tip.flip-y { top: auto; bottom: 8px; }
+.m28-tip .m28-step { width: 1.6rem; height: 1.6rem; font-size: .85rem; }
