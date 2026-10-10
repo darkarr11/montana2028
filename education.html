@@ -6,11 +6,16 @@
 <title>Education Reform · Montana 2028</title>
 <meta name="description" content="Issue 1: Education Reform. Darren Karr for Montana Governor 2028.">
 <link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
 <header><div class="wrap"><a href="/">MONTANA 2028</a><nav><a href="/#issues">Issues</a><a href="/#how">How this works</a></nav></div></header>
 <main class="wrap"><article>
 <h1>Issue 1: Education Reform</h1>
+<div class="m28-hint"><strong>Every line of this is open for debate.</strong> Highlight any sentence to ask a question, push back, or back it up. Highlighted passages show what people are talking about. Tap one to read the discussion. <span id="m28-count"></span><br><button type="button" class="m28-demo-open" data-demo>&#9654; Watch how it works</button><div id="m28-auth" class="m28-auth"></div></div>
+<div id="policy" data-doc="montana2028_education">
 <p><strong>The government affects almost everything in your daily life,
 starting with your wallet. Taxes and spending. It’s time we look at both
 ends.</strong></p>
@@ -208,9 +213,13 @@ interests and entrenched bureaucracies protecting the status quo. They
 won’t go quietly. They’ll fight to keep their power and your money.</p>
 <p>Let them fight. We outnumber them.</p>
 <p>Freedom for Montanans.</p>
-together.</em></p>
+</div>
 <div class="ask"><strong>What am I missing? What doesn't make sense?</strong> We can build this together.</div>
-</article></main>
+</article>
+<section id="general-discussion"></section>
+</main>
 <footer><div class="wrap">Darren Karr for Montana Governor · 2028</div></footer>
+<script src="blab.js"></script>
+<script src="demo.js"></script>
 </body>
 </html>
