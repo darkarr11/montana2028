@@ -1,0 +1,49 @@
+:root {
+  --forest: #1a332a;
+  --forest-mid: #2d4a3e;
+  --amber: #d4a024;
+  --parchment: #f5f2eb;
+  --white: #ffffff;
+  --stone: #6b6b60;
+  --font-body: Georgia, "Times New Roman", serif;
+  --font-ui: "Helvetica Neue", Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; }
+body { font-family: var(--font-body); color: var(--forest); background: var(--parchment); line-height: 1.7; }
+a { color: var(--forest); text-decoration-color: var(--amber); text-underline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-ui); line-height: 1.2; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+header { background: var(--forest); border-bottom: 3px solid var(--amber); }
+header .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+header a { color: var(--parchment); text-decoration: none; font-family: var(--font-ui); font-weight: 700; letter-spacing: .04em; }
+header nav a { font-weight: 400; margin-left: 1.2rem; font-size: .9rem; }
+
+.hero { background: linear-gradient(165deg, var(--forest), var(--forest-mid)); color: var(--parchment); padding: 4.5rem 0 4rem; }
+.hero .eyebrow { font-family: var(--font-ui); color: var(--amber); text-transform: uppercase; letter-spacing: .15em; font-size: .8rem; }
+.hero h1 { font-size: clamp(2.2rem, 7vw, 3.4rem); margin: .4rem 0 1.2rem; }
+.hero p { font-size: 1.15rem; max-width: 36em; }
+.hero .tag { margin-top: 1.5rem; font-style: italic; color: var(--amber); }
+
+section { padding: 3rem 0; }
+section + section { border-top: 1px solid #ddd8cc; }
+section h2 { font-size: 1.6rem; margin-bottom: 1rem; }
+section p + p { margin-top: 1rem; }
+
+.issues { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.issue { display: block; background: var(--white); border-radius: 8px; padding: 1.25rem 1.5rem; text-decoration: none; box-shadow: 0 2px 12px rgba(0,0,0,.07); border-left: 4px solid var(--amber); }
+.issue .num { font-family: var(--font-ui); font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; color: var(--stone); }
+.issue h3 { margin: .2rem 0 .3rem; }
+.issue.soon { border-left-color: #c8c4ba; opacity: .75; }
+
+.steps { margin: 1rem 0 0 1.2rem; }
+.steps li { margin-bottom: .4rem; }
+
+article { padding: 3rem 0; }
+article h1 { font-size: clamp(1.9rem, 6vw, 2.6rem); margin-bottom: 1.5rem; }
+article p { margin-top: 1rem; }
+article p strong:only-child { display: block; font-family: var(--font-ui); font-size: 1.15rem; margin-top: 2rem; }
+.ask { background: var(--white); border-radius: 8px; padding: 1.5rem; margin-top: 2.5rem; border-left: 4px solid var(--amber); }
+
+footer { background: var(--forest); color: #b9c2bb; font-family: var(--font-ui); font-size: .85rem; padding: 2rem 0; text-align: center; }
