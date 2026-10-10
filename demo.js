@@ -13,12 +13,12 @@
   modal.innerHTML =
     '<div class="m28-demo-card" role="dialog" aria-label="How blabbing works">' +
       '<div class="m28-demo-head"><span>How blabbing works</span><button type="button" class="m28-close" aria-label="Close">&times;</button></div>' +
-      '<div class="m28-demo-caption"></div>' +
       '<div class="m28-demo-stage">' +
         '<p class="m28-demo-para">' + PARA_BEFORE + '<span class="m28-demo-sweep s1">' + SENTENCE + '</span>' + PARA_AFTER + '</p>' +
         '<div class="m28-demo-thread"></div>' +
         '<button type="button" class="m28-demo-fakebtn">💬 Blab on this</button>' +
         '<div class="m28-demo-cursor"></div>' +
+        '<div class="m28-tip"></div>' +
       '</div>' +
       '<div class="m28-demo-foot"><span class="m28-demo-note">Example only. Names and comments are made up.</span>' +
         '<span><button type="button" class="m28-demo-replay">Replay</button> <button type="button" class="m28-demo-try">Try it yourself</button></span></div>' +
@@ -27,13 +27,14 @@
 
   var card = modal.querySelector('.m28-demo-card');
   var stage = modal.querySelector('.m28-demo-stage');
-  var caption = modal.querySelector('.m28-demo-caption');
+  var tip = modal.querySelector('.m28-tip');
+  var SLOW = 1.6;  /* stretch every pause; raise to slow the demo down */
   var thread = modal.querySelector('.m28-demo-thread');
   var cursor = modal.querySelector('.m28-demo-cursor');
   var fakeBtn = modal.querySelector('.m28-demo-fakebtn');
   var timers = [], run = 0;
 
-  function wait(ms, id) { return new Promise(function (res) { timers.push(setTimeout(function () { if (id === run) res(); }, ms)); }); }
+  function wait(ms, id) { return new Promise(function (res) { timers.push(setTimeout(function () { if (id === run) res(); }, ms * SLOW)); }); }
   function stop() { timers.forEach(clearTimeout); timers = []; run++; }
   function pos(el, dx, dy) {
     var s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
@@ -41,9 +42,23 @@
   }
   function moveCursor(p) { cursor.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
   function click() { cursor.classList.add('click'); timers.push(setTimeout(function () { cursor.classList.remove('click'); }, 250)); }
-  function say(t) {
-    caption.innerHTML = t;
-    caption.classList.remove('pop'); void caption.offsetWidth; caption.classList.add('pop');
+  /* Floating instruction box next to the action: side = 'above' | 'below' | 'center' */
+  function say(t, el, side) {
+    tip.innerHTML = t;
+    tip.className = 'm28-tip ' + (side === 'below' ? 'below' : side === 'center' ? 'center' : 'above');
+    var W = stage.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight, x, y, ax = tw / 2;
+    if (side === 'center' || !el) {
+      x = (W - tw) / 2; y = stage.clientHeight - th - 24;
+    } else {
+      var p = pos(el), r = el.getBoundingClientRect();
+      var cx = p.x + Math.min(r.width, W) / 2;
+      x = Math.max(8, Math.min(W - tw - 8, cx - tw / 2));
+      ax = Math.max(16, Math.min(tw - 16, cx - x));
+      y = side === 'below' ? p.y + r.height + 14 : p.y - th - 14;
+    }
+    tip.style.left = x + 'px'; tip.style.top = Math.max(4, y) + 'px';
+    tip.style.setProperty('--ax', ax + 'px');
+    void tip.offsetWidth; tip.classList.add('show');
   }
   function typeInto(el, text, id) {
     var i = 0;
@@ -51,7 +66,7 @@
       (function step() {
         if (id !== run) return;
         el.textContent = text.slice(0, ++i);
-        if (i < text.length) timers.push(setTimeout(step, 28)); else res();
+        if (i < text.length) timers.push(setTimeout(step, 45)); else res();
       })();
     });
   }
@@ -73,7 +88,9 @@
     cursor.style.transition = 'none'; moveCursor({ x: stage.clientWidth - 40, y: stage.clientHeight - 30 });
     await wait(50, id); cursor.style.transition = '';
 
-    say('<span class="m28-step">1</span> Highlight the section you want to comment on.');
+    tip.className = 'm28-tip';
+    await wait(300, id);
+    say('<span class="m28-step">1</span> Highlight the section you want to comment on.', modal.querySelector('.m28-demo-para'), 'above');
     await wait(700, id);
     moveCursor(pos(s1, 0, 6)); await wait(800, id);
     s1.classList.add('sweeping'); moveCursor(pos(s1, s1.getBoundingClientRect().width > stage.clientWidth * 0.6 ? stage.clientWidth * 0.55 : s1.getBoundingClientRect().width, 26));
@@ -83,16 +100,17 @@
     moveCursor(pos(fakeBtn, 40, 14)); await wait(700, id); click(); await wait(300, id);
     fakeBtn.classList.remove('show');
 
-    say('<span class="m28-step">2</span> Leave your comment.');
     var b1 = blabCard('Example: Sam in Roundup', 'Question', 'm28-question');
     thread.appendChild(b1);
+    say('<span class="m28-step">2</span> Leave your comment.', b1, 'below');
+    await wait(900, id);
     await typeInto(b1.querySelector('.m28-body'), BLAB1, id);
     await wait(500, id);
     s1.classList.add('done');
     var badge = document.createElement('span'); badge.className = 'm28-badge m28-demo-badge'; badge.setAttribute('data-count', '1'); s1.after(badge);
     await wait(1500, id);
 
-    say('<span class="m28-step">3</span> Someone else can respond to your comment, or a section of your comment.');
+    say('<span class="m28-step">3</span> Someone else can respond to your comment, or a section of your comment.', b1, 'above');
     var body1 = b1.querySelector('.m28-body');
     var i = BLAB1.indexOf(PHRASE);
     body1.innerHTML = BLAB1.slice(0, i) + '<span class="m28-demo-sweep s2">' + PHRASE + '</span>' + BLAB1.slice(i + PHRASE.length);
@@ -114,7 +132,7 @@
     var badge2 = document.createElement('span'); badge2.className = 'm28-badge m28-demo-badge'; badge2.setAttribute('data-count', '1'); s2.after(badge2);
     await wait(900, id);
     moveCursor({ x: stage.clientWidth - 40, y: stage.clientHeight - 30 });
-    say('<span class="m28-step">\u2713</span> That\u2019s it. Click any highlight to read the discussion.');
+    say('<span class="m28-step">\u2713</span> That\u2019s it. Click any highlight to read the discussion.', null, 'center');
   }
 
   function open() { modal.classList.add('open'); play(); }
