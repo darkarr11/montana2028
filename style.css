@@ -15,7 +15,7 @@ a { color: var(--forest); text-decoration-color: var(--amber); text-underline-of
 h1, h2, h3 { font-family: var(--font-ui); line-height: 1.2; }
 .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
 
-header { background: var(--forest); border-bottom: 3px solid var(--amber); }
+header { background: #01245f; border-bottom: 3px solid #f2c443; }
 header .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
 header a { color: var(--parchment); text-decoration: none; font-family: var(--font-ui); font-weight: 700; letter-spacing: .04em; }
 header nav a { font-weight: 400; margin-left: 1.2rem; font-size: .9rem; }
@@ -46,4 +46,13 @@ article p { margin-top: 1rem; }
 article p strong:only-child { display: block; font-family: var(--font-ui); font-size: 1.15rem; margin-top: 2rem; }
 .ask { background: var(--white); border-radius: 8px; padding: 1.5rem; margin-top: 2.5rem; border-left: 4px solid var(--amber); }
 
-footer { background: var(--forest); color: #b9c2bb; font-family: var(--font-ui); font-size: .85rem; padding: 2rem 0; text-align: center; }
+footer { background: #01245f; color: #c9d3e6; font-family: var(--font-ui); font-size: .85rem; padding: 2rem 0; text-align: center; }
+
+/* Banner: Montana 2028 flag art, name along the bottom */
+.banner { position: relative; background: #01307e; line-height: 0; }
+.banner img { width: 100%; height: auto; display: block; }
+.banner-name { position: absolute; right: 3%; bottom: 4.5%; margin: 0; line-height: 1;
+  color: #fff; font-family: var(--font-ui); font-weight: 800; text-transform: uppercase;
+  letter-spacing: .08em; font-size: 3.1vw; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.intro { background: #01307e; color: #fff; padding: 2.5rem 0 3rem; font-size: 1.1rem; border-top: 3px solid #f2c443; }
+.intro .tag { margin-top: 1.2rem; font-style: italic; color: #f2c443; }
