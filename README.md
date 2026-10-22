@@ -24,7 +24,10 @@ Excluded from the public site by `_config.yml`.
 - `firestore.rules`: deploy with `cd firebase && firebase deploy --only firestore:rules --project blabbertree-app`.
 - `functions/`: an iCloud-SMTP email function. **Not deployed**, because FormSubmit replaced it. Keep it or delete it.
 
-## Open (2026-10-10)
-- darren@montana2028.com is stuck in GoDaddy provisioning, which also has darren@ownersvr.com stuck. Meta's political-ads form needs this inbox to verify. Fallback: ImprovMX forwarding.
+## Open (updated 2026-10-22)
+- **Mailbox darren@montana2028.com:** Meta's political-ads form needs this inbox to verify.
+  - 2026-10-11: the user existed in Microsoft's directory, but `montana2028-com.mail.protection.outlook.com` did not resolve. The domain wasn't provisioned in Exchange Online, so mail would bounce. darren@ownersvr.com was stuck at the same step.
+  - 2026-10-22: that host now resolves, so the domain looks provisioned. Delivery is not yet confirmed, because port 25 is blocked from the Mac. Next: Darren sets the password, sends a test email, then completes Meta verification.
+  - Fallback: ImprovMX forwarding.
 - Google sign-in is configured but hasn't had a live test with a real account.
 - Google's sign-in popup names `blabbertree-app.firebaseapp.com`, not montana2028.com.
