@@ -1,6 +1,6 @@
 # montana2028.com
 
-Darren Karr for Montana Governor 2028. Static site on GitHub Pages (custom domain via `CNAME`, https enforced). DNS at GoDaddy: four A records to GitHub Pages, `www` CNAME to `darkarr11.github.io`, MX to Microsoft 365.
+Darren Karr for Montana Governor 2028. Static site on GitHub Pages (custom domain via `CNAME`, https enforced). Email is karr@montana2028.com (GoDaddy Microsoft 365). DNS at GoDaddy: four A records to GitHub Pages, `www` CNAME to `darkarr11.github.io`, MX to Microsoft 365.
 
 ## Pages
 - `index.html`: home. Banner is `banner.jpg` (Montana 2028 flag art) with "Darren Karr for Governor" overlaid in HTML.
@@ -25,9 +25,6 @@ Excluded from the public site by `_config.yml`.
 - `functions/`: an iCloud-SMTP email function. **Not deployed**, because FormSubmit replaced it. Keep it or delete it.
 
 ## Open (updated 2026-10-22)
-- **Mailbox darren@montana2028.com:** Meta's political-ads form needs this inbox to verify.
-  - 2026-10-11: the user existed in Microsoft's directory, but `montana2028-com.mail.protection.outlook.com` did not resolve. The domain wasn't provisioned in Exchange Online, so mail would bounce. darren@ownersvr.com was stuck at the same step.
-  - 2026-10-22: that host now resolves, so the domain looks provisioned. Delivery is not yet confirmed, because port 25 is blocked from the Mac. Next: Darren sets the password, sends a test email, then completes Meta verification.
-  - Fallback: ImprovMX forwarding.
+- **Mailbox:** now **karr@montana2028.com** (changed from darren@ on 2026-10-15), opened in Outlook web. On 10/11 the domain wasn't set up on Microsoft's mail side yet; by 10/22 Microsoft's mail server resolves. Not recorded here: whether Meta's political-ads verification is done.
 - Google sign-in is configured but hasn't had a live test with a real account.
 - Google's sign-in popup names `blabbertree-app.firebaseapp.com`, not montana2028.com.
