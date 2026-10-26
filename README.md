@@ -3,8 +3,8 @@
 Darren Karr for Montana Governor 2028. Static site on GitHub Pages (custom domain via `CNAME`, https enforced). Email is karr@montana2028.com (GoDaddy Microsoft 365). DNS at GoDaddy: four A records to GitHub Pages, `www` CNAME to `darkarr11.github.io`, MX to Microsoft 365.
 
 ## Pages
-- `index.html`: home. Banner is `banner.jpg` (Montana 2028 flag art) with "Darren Karr for Governor" overlaid in HTML.
-- `education.html`: Issue 1, Facebook post #1 verbatim. Source of record: Genesis `docs/campaign/comms/2026-10-07-fb-post-01-education.md`. Its statistics are not yet sourced.
+- `index.html`: **the Education page is the home page for now (2026-10-26).** Banner is `banner.jpg` (Montana 2028 flag art), no name on it. "Darren Karr for Governor" sits at the end of the education text as a sign-off. The opening was rewritten in Sophie voice on 2026-10-26; sections 1–6, Everybody Wins and The Result are still Facebook post #1 verbatim (Genesis `docs/campaign/comms/2026-10-07-fb-post-01-education.md`).
+- `education.html`: redirect to `/`, so links from the Facebook post keep working. The old home page (issue cards + "How this works") is in git history before this change.
 
 ## Blabbable policy (`blab.js`, `demo.js`)
 Readers highlight any passage and blab on it. There is also a General discussion box at the bottom, and words inside any comment can be highlighted and blabbed too. Highlights show a count badge.
@@ -17,7 +17,7 @@ Readers highlight any passage and blab on it. There is also a General discussion
 - **Moderation:** blabs can't be deleted from the client. Remove one with an admin token against the Firestore REST API, or in the Firebase console.
 
 ### Adding an issue page
-Copy `education.html`. Change `data-doc="montana2028_<issue>"` and `data-title="<Policy name>"` on `#policy`, then add a card to `index.html`.
+Copy `index.html` (minus the banner). Change `data-doc="montana2028_<issue>"` and `data-title="<Policy name>"` on `#policy`, then decide where the home page links to it. There is no issues list right now.
 
 ## `firebase/`
 Excluded from the public site by `_config.yml`.
