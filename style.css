@@ -152,3 +152,4 @@ mark.m28-hl:hover { background: rgba(242,196,67,.6); }
 .m28-tip.flip-y { top: auto; bottom: 8px; }
 .m28-tip .m28-step { width: 1.6rem; height: 1.6rem; font-size: .85rem; }
 .signoff { font-weight: 700; font-size: 1.15em; margin-top: 1.5em; }
+.opening { margin-bottom: 2em; }
