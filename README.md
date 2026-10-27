@@ -6,6 +6,9 @@ Darren Karr for Montana Governor 2028. Static site on GitHub Pages (custom domai
 - `index.html`: **the Education page is the home page for now (2026-10-26).** Banner is `banner.jpg` (Montana 2028 flag art), no name on it. "Darren Karr for Governor" sits at the end of the education text as a sign-off. Page text is Darren's layout of 2026-10-26: opening, Issue 1 with sections reordered (Teachers, Funding, Socialization, Flexibility, Standards, Buildings), Everybody Wins, The Result, sign-off, How This Works. Hyphens and em dashes removed on purpose. The 2026-10-07 Facebook post (Genesis `docs/campaign/comms/2026-10-07-fb-post-01-education.md`) is the earlier version.
 - `education.html`: redirect to `/`, so links from the Facebook post keep working. The old home page (issue cards + "How this works") is in git history before this change.
 
+## Visitor stats
+GoatCounter (no cookies), dashboard at https://montana2028.goatcounter.com (Darren's personal-email account). Script tag at the bottom of `index.html`.
+
 ## Blabbable policy (`blab.js`, `demo.js`)
 Readers highlight any passage and blab on it. There is also a General discussion box at the bottom, and words inside any comment can be highlighted and blabbed too. Highlights show a count badge.
 
