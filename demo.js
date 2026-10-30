@@ -121,7 +121,7 @@
     moveCursor(pos(fakeBtn, 40, 14)); await wait(700, id); click(); await wait(300, id);
     fakeBtn.classList.remove('show');
 
-    var b2 = blabCard('Example: Darren', '', '', PHRASE);
+    var b2 = blabCard('Example: Jess in Malta', '', '', PHRASE);
     b2.style.marginLeft = '14px';
     thread.appendChild(b2);
     moveCursor(pos(b2.querySelector('.m28-body'), -6, b2.querySelector('.m28-body').offsetHeight));

@@ -1,6 +1,6 @@
 # montana2028.com
 
-Darren Karr for Montana Governor 2028. Static site on GitHub Pages (custom domain via `CNAME`, https enforced). Email is karr@montana2028.com (GoDaddy Microsoft 365). DNS at GoDaddy: four A records to GitHub Pages, `www` CNAME to `darkarr11.github.io`, MX to Microsoft 365.
+Montana 2028 general discussion site (no candidate name on it, Darren's call 2026-10-29). Static site on GitHub Pages (custom domain via `CNAME`, https enforced). Email is karr@montana2028.com (GoDaddy Microsoft 365). DNS at GoDaddy: four A records to GitHub Pages, `www` CNAME to `darkarr11.github.io`, MX to Microsoft 365.
 
 ## Pages
 - `index.html`: **the Education page is the home page for now (2026-10-26).** Banner is `banner.jpg` (Montana 2028 flag art), no name on it. "Darren Karr for Governor" sits at the end of the education text as a sign-off. Page text is Darren's layout of 2026-10-26: opening, Issue 1 with sections reordered (Teachers, Funding, Socialization, Flexibility, Standards, Buildings), Everybody Wins, The Result, sign-off, How This Works. Hyphens and em dashes removed on purpose. The 2026-10-07 Facebook post (Genesis `docs/campaign/comms/2026-10-07-fb-post-01-education.md`) is the earlier version.

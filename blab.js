@@ -231,7 +231,7 @@
     });
   }
 
-  /* Email Darren about every new blab (FormSubmit relay, no server or password) */
+  /* Email the site owner about every new blab (FormSubmit relay, no server or password) */
   var NOTIFY_URL = 'https://formsubmit.co/ajax/dkarr@mac.com';
   var POLICY_TITLE = policy.getAttribute('data-title') || document.title;
   function notify(d) {
