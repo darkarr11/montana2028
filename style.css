@@ -156,3 +156,5 @@ mark.m28-hl:hover { background: rgba(242,196,67,.6); }
 .lead { font-size: 1.15em; font-weight: 600; }
 #how { margin-top: 3em; }
 #how .tag { font-style: italic; font-weight: 600; }
+.headline { font-family: var(--font-ui); font-size: 2rem; font-weight: 800; line-height: 1.2; margin: 0.5em 0 0.75em; }
+@media (max-width: 600px) { .headline { font-size: 1.6rem; } }
