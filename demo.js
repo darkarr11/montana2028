@@ -1,12 +1,14 @@
 /* "How blabbing works" demo: a scripted, self-playing walkthrough in a modal.
    Pure animation on a copy of one paragraph. Nothing is read from or written to Firestore. */
 (function () {
-  var SENTENCE = 'A teacher running a pod of 20 students at $6,000-8,000 per student makes a strong income.';
-  var PARA_BEFORE = 'When teachers set their own rates and operate independently, competition drives prices down while great teachers actually earn more. ';
-  var PARA_AFTER = ' Way more than they’d make in the current system.';
-  var BLAB1 = 'How does a teacher in a small town get 20 students? There aren’t that many kids in my grade.';
-  var PHRASE = 'get 20 students';
-  var BLAB2 = 'Remote students. A teacher in Malta can teach kids in ten counties at once.';
+  /* A page can swap in its own example by setting window.M28_DEMO before this script loads */
+  var C = window.M28_DEMO || {};
+  var SENTENCE = C.sentence || 'A teacher running a pod of 20 students at $6,000-8,000 per student makes a strong income.';
+  var PARA_BEFORE = C.before || 'When teachers set their own rates and operate independently, competition drives prices down while great teachers actually earn more. ';
+  var PARA_AFTER = C.after || ' Way more than they’d make in the current system.';
+  var BLAB1 = C.blab1 || 'How does a teacher in a small town get 20 students? There aren’t that many kids in my grade.';
+  var PHRASE = C.phrase || 'get 20 students';
+  var BLAB2 = C.blab2 || 'Remote students. A teacher in Malta can teach kids in ten counties at once.';
 
   var modal = document.createElement('div');
   modal.className = 'm28-demo';
@@ -95,7 +97,7 @@
     moveCursor(pos(fakeBtn, 40, 14)); await wait(700, id); click(); await wait(300, id);
     fakeBtn.classList.remove('show');
 
-    var b1 = blabCard('Example: Sam in Roundup', 'Question', 'm28-question');
+    var b1 = blabCard(C.name1 || 'Example: Sam in Roundup', 'Question', 'm28-question');
     thread.appendChild(b1);
     say('<span class="m28-step">2</span> Leave your comment.');
     await wait(900, id);
@@ -121,7 +123,7 @@
     moveCursor(pos(fakeBtn, 40, 14)); await wait(700, id); click(); await wait(300, id);
     fakeBtn.classList.remove('show');
 
-    var b2 = blabCard('Example: Jess in Malta', '', '', PHRASE);
+    var b2 = blabCard(C.name2 || 'Example: Jess in Malta', '', '', PHRASE);
     b2.style.marginLeft = '14px';
     thread.appendChild(b2);
     moveCursor(pos(b2.querySelector('.m28-body'), -6, b2.querySelector('.m28-body').offsetHeight));
