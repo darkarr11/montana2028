@@ -1,0 +1,12 @@
+/* Flux Tax pages (unlisted) */
+header nav a[aria-current] { color: #f2c443; }
+.toc { background: var(--white); border-left: 4px solid var(--amber); border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; font-family: var(--font-ui); font-size: .9rem; }
+.toc ol { margin: .5rem 0 0 1.2rem; }
+.toc li + li { margin-top: .2rem; }
+#policy h2 { font-size: 1.4rem; margin: 2.5rem 0 1rem; scroll-margin-top: 1rem; }
+#policy h4 { font-family: var(--font-ui); font-size: 1.05rem; margin: 1.75rem 0 .5rem; }
+#policy p + p { margin-top: 1rem; }
+#policy ul, #policy ol { margin: .75rem 0 .75rem 1.4rem; }
+#policy li + li { margin-top: .4rem; }
+#policy blockquote { border-left: 3px solid #ddd8cc; padding-left: 1rem; color: var(--stone); margin: 1rem 0; }
+@media (max-width: 480px) { header nav a { margin-left: .8rem; font-size: .8rem; } }

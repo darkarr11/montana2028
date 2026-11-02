@@ -6,6 +6,9 @@ Montana 2028 general discussion site (no candidate name on it, Darren's call 202
 - `index.html`: **the Education page is the home page for now (2026-10-26).** Banner is `banner.jpg` (Montana 2028 flag art), no name on it. "Darren Karr for Governor" sits at the end of the education text as a sign-off. Page text is Darren's layout of 2026-10-26: opening, Issue 1 with sections reordered (Teachers, Funding, Socialization, Flexibility, Standards, Buildings), Everybody Wins, The Result, sign-off, How This Works. Hyphens and em dashes removed on purpose. The 2026-10-07 Facebook post (Genesis `docs/campaign/comms/2026-10-07-fb-post-01-education.md`) is the earlier version.
 - `education.html`: redirect to `/`, so links from the Facebook post keep working. The old home page (issue cards + "How this works") is in git history before this change.
 
+## Unlisted: Flux Tax Montana (`flux-tax/`)
+Added 2026-11-02 at Darren's request: the Montana version of the Flux Tax (home pitch, the book, the Montana Flux Tax Act). **Not linked from anywhere on the site** and marked `noindex`, so only people with the URL find it (montana2028.com/flux-tax/). This repo is public, so it is unlisted, not secret. Blab docKeys `montana2028_fluxtax_home|book|act`, so the montana2028 rules and emails apply. Uses `../style.css` and `../blab.js`, plus `flux-tax/flux.css`. The general, non-Montana Flux Tax is fluxtax.com (separate repo).
+
 ## Visitor stats
 GoatCounter (no cookies), dashboard at https://montana2028.goatcounter.com (Darren's personal-email account). Script tag at the bottom of `index.html`.
 
