@@ -54,6 +54,11 @@ footer { background: #01245f; color: #c9d3e6; font-family: var(--font-ui); font-
 .banner-name { position: absolute; right: 3%; bottom: 4.5%; margin: 0; line-height: 1;
   color: #fff; font-family: var(--font-ui); font-weight: 800; text-transform: uppercase;
   letter-spacing: .08em; font-size: 3.1vw; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.banner-tagline { position: absolute; right: 3%; bottom: 3.5%; max-width: 52%; margin: 0; line-height: 1.25;
+  text-align: right; color: #fff; font-family: var(--font-ui); font-weight: 700; font-style: italic;
+  font-size: 1.7vw; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+@media (max-width: 700px) { .banner-tagline { position: static; max-width: none; text-align: center;
+  font-size: 1rem; line-height: 1.35; padding: .7rem 16px .8rem; text-shadow: none; } }
 .intro { background: #01307e; color: #fff; padding: 2.5rem 0 3rem; font-size: 1.1rem; border-top: 3px solid #f2c443; }
 .intro .tag { margin-top: 1.2rem; font-style: italic; color: #f2c443; }
 
